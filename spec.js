@@ -22,15 +22,17 @@ describe(`async-git (${Object.getOwnPropertyNames(git).join(', ')})`, async() =>
 	});
 
 	[
-		'name',
-		'branch',
 		'author',
+		'branch',
 		'comitter',
 		'email',
+		'message',
+		'name',
+		'origin',
 		'sha',
 		'short',
 		'subject',
-		'message',
+		'version',
 	].forEach(member => it(`${member} should retrieve a string`, async () => {
 		const value = await git[member];
 		expect(value).to.be.a('string');

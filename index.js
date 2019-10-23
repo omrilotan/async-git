@@ -2,9 +2,11 @@ const branch = require('./lib/branch');
 const date = require('./lib/date');
 const modified = require('./lib/modified');
 const name = require('./lib/name');
+const origin = require('./lib/origin');
 const reset = require('./lib/reset');
 const show = require('./lib/show');
 const tag = require('./lib/tag');
+const version = require('./lib/version');
 
 const formats = [
 	['author'  , 'an'],
@@ -19,9 +21,11 @@ const formats = [
 
 const getters = Object.assign(
 	{
-		name,
 		branch,
 		date,
+		name,
+		origin,
+		version,
 	},
 	...formats.map(
 		([key, value]) => ({[key]: show.bind(null, value)})
@@ -46,9 +50,11 @@ const functions = {
  * @property {Promise<String>} email    Author email of the last commit
  * @property {Promise<String>} message  Most recent commit full message
  * @property {Promise<String>} name     Project name
+ * @property {Promise<String>} origin   Remote origin URL
  * @property {Promise<String>} sha      Unique identifier of the last commit
  * @property {Promise<String>} short    7 Character Unique identifier of the last commit
  * @property {Promise<String>} subject  Most recent commit subject
+ * @property {Promise<String>} version  Get git version (semver)
  * @property {Function}        modified Get the last modified date of a file
  * @property {Function}        reset    Reset current HEAD to the specified state
  * @property {Function}        tag      Create and push a git tag with the last commit message

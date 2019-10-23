@@ -22,9 +22,11 @@ const git = require('async-git');
 | `email` | string | Author email of the last commit | `await git.email`
 | `message` | string | Most recent commit full message (subject and body) | `await git.message`
 | `name` | string | Project name | `await git.name`
+| `origin` | string | Remote origin URL | `await git.origin`
 | `sha` | string | Unique identifier of the last commit | `await git.sha`
 | `short` | string | 7 Character Unique identifier of the last commit | `await git.short`
 | `subject` | string | Most recent commit subject | `await git.subject`
+| `version` | string | Get git version (semver) | `await git.version`
 
 ## Functions
 
