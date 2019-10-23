@@ -2,7 +2,7 @@
 
 ## 👾 Retrieve data from current git repository
 
-\* Getter properties are async (getters) [more on async properties](https://medium.com/@omrilotan/javascript-async-variables-686dc5f03cb2)
+\* Getter properties are async (getters) [more on async properties](https://dev.to/omrilotan/javascript-apis-with-async-properties-5ag7)
 
 ```js
 const git = require('async-git');
@@ -41,14 +41,15 @@ await modified('./index.js')
 | `{string}` Path to file | `{Date}` Last modified date
 
 ### `reset`
-Reset current HEAD to the specified state
+Reset current HEAD to the specified destination
 ```js
-await git.reset('f5db755')
+await git.reset(1) // reset number of commit back
+await git.reset('f5db755') // reset to specific SHA ID
 ```
 
 | Argument | Return value
 | - | -
-| `{string}` State ID | `{void}` nothing
+| `{string\|number}` State ID | `{void}` nothing
 
 ### `tag`
 Create a tag using the last commit message
