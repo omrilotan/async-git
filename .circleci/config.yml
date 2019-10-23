@@ -1,0 +1,30 @@
+version: 2.1
+jobs:
+  publish:
+    working_directory: ~/app
+    docker:
+      - image: circleci/node:12
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm i
+      - run:
+          name: Check code syntax
+          command: npm run lint -- --plugin log
+      - run:
+          name: Run tests
+          command: npm t
+      - run:
+          name: Set NPM tokens
+          command: echo -e $NPMRC > ~/.npmrc
+      - run:
+          name: Publish
+          command: npx published --git-tag
+
+workflows:
+  version: 2.1
+  ci-cd:
+    jobs:
+      - publish:
+          context: globalenv

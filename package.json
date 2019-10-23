@@ -1,0 +1,41 @@
+{
+  "name": "async-git",
+  "version": "1.6.1",
+  "description": "👾 Get some git info",
+  "keywords": [
+    "git",
+    "github",
+    "bitbucket",
+    "gitlab",
+    "info",
+    "async",
+    "promise",
+    "commit",
+    "branch",
+    "author",
+    "git log",
+    "source control"
+  ],
+  "author": "omrilotan",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omrilotan/async-git.git"
+  },
+  "homepage": "https://omrilotan.com/async-git/",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha '**/spec.js' --require .mocha.js --recursive --exclude 'node_modules'",
+    "lint": "eslint '*.js' '**/*.js'"
+  },
+  "dependencies": {
+    "@does/exist": "^1.0.0",
+    "async-execute": "^1.1.0"
+  },
+  "devDependencies": {
+    "@omrilotan/eslint-config": "^1.1.0",
+    "eslint": "^6.5.1",
+    "eslint-plugin-log": "^1.2.3",
+    "mocha-setup": "0.0.1"
+  }
+}
