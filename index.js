@@ -28,8 +28,8 @@ const getters = Object.assign(
 		version,
 	},
 	...formats.map(
-		([key, value]) => ({[key]: show.bind(null, value)})
-	)
+		([key, value]) => ({[key]: show.bind(null, value)}),
+	),
 );
 
 const functions = {
@@ -70,9 +70,9 @@ Object.defineProperties(
 						get: value,
 						configurable: true,
 					},
-				}
+				},
 			),
-			{}
+			{},
 		),
 		Object.entries(functions).reduce(
 			(props, [key, value]) => Object.assign(
@@ -82,9 +82,9 @@ Object.defineProperties(
 						value,
 						configurable: true,
 					},
-				}
+				},
 			),
-			{}
-		)
-	)
+			{},
+		),
+	),
 );
