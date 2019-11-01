@@ -57,10 +57,10 @@ describe(`async-git (${Object.getOwnPropertyNames(git).join(', ')})`, async() =>
 		const date = await git.date;
 
 		expect(
-			date.getFullYear()
+			date.getFullYear(),
 		).to.be.closeTo(
 			new Date().getFullYear(),
-			1
+			1,
 		);
 	});
 
@@ -75,6 +75,6 @@ describe(`async-git (${Object.getOwnPropertyNames(git).join(', ')})`, async() =>
 	});
 
 	it('Should get the name of the repo', async () =>
-		expect(await git.name).to.equal('async-git')
+		expect(await git.name).to.equal('async-git'),
 	);
 });
