@@ -17,6 +17,7 @@ const git = require('async-git');
 | `author` | string | Author name of the last commit | `await git.author`
 | `body` | string | Most recent commit message body | `await git.body`
 | `branch` | string | Current branch name | `await git.branch`
+| `changed` | Array | List of files changed from last commit | `await git.changed`
 | `comitter` | string | Comitter name of the last commit | `await git.comitter`
 | `date` | Date | Date of the last change | `await git.date`
 | `email` | string | Author email of the last commit | `await git.email`

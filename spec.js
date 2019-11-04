@@ -1,4 +1,4 @@
-
+const { clean } = abuser(__filename);
 const exec = require('async-execute');
 const git = require('.');
 
@@ -19,6 +19,8 @@ describe(`async-git (${Object.getOwnPropertyNames(git).join(', ')})`, async() =>
 
 		await exec(`git reset ${start} --soft`);
 		await exec('rm fake-file.txt');
+		await exec('git add fake-file.txt');
+		clean('.');
 	});
 
 	[
@@ -42,6 +44,14 @@ describe(`async-git (${Object.getOwnPropertyNames(git).join(', ')})`, async() =>
 	it('body should retrieve a string, may be empty', async () => {
 		const value = await git.body;
 		expect(value).to.be.a('string');
+	});
+
+	it('changed should retrieve an array of strings', async () => {
+		const value = await git.changed;
+		expect(value).to.be.an('array');
+		value.forEach(
+			file => expect(file).to.be.a('string'),
+		);
 	});
 
 	it('date should retrieve a valid date', async () => {
