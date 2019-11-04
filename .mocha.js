@@ -1,4 +1,15 @@
-require('mocha-setup');
+const chai = require('chai');
+const sinon = require('sinon');
+const abuser = require('abuser');
+chai.use(require('chai-as-promised'));
+chai.use(require('sinon-chai'));
 
-// Your other things
-process.on('unhandledRejection', error => { throw error; });
+Object.assign(
+	global,
+	chai,
+	sinon,
+	{
+		sinon,
+		abuser,
+	},
+);

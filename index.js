@@ -1,4 +1,5 @@
 const branch = require('./lib/branch');
+const changed = require('./lib/changed');
 const date = require('./lib/date');
 const modified = require('./lib/modified');
 const name = require('./lib/name');
@@ -22,6 +23,7 @@ const formats = [
 const getters = Object.assign(
 	{
 		branch,
+		changed,
 		date,
 		name,
 		origin,
@@ -45,6 +47,7 @@ const functions = {
  * @property {Promise<String>} author   Author name of the last commit
  * @property {Promise<String>} body     Most recent commit message body
  * @property {Promise<String>} branch   Current branch name
+ * @property {Promise<Array>}  changed  List of files changed in the last commit
  * @property {Promise<String>} comitter Comitter name of the last commit
  * @property {Promise<String>} date     Get last author date
  * @property {Promise<String>} email    Author email of the last commit
