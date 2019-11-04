@@ -1,13 +1,15 @@
-const branch = require('./lib/branch');
-const changed = require('./lib/changed');
-const date = require('./lib/date');
-const modified = require('./lib/modified');
-const name = require('./lib/name');
-const origin = require('./lib/origin');
-const reset = require('./lib/reset');
-const show = require('./lib/show');
-const tag = require('./lib/tag');
-const version = require('./lib/version');
+const {
+	branch,
+	changed,
+	date,
+	modified,
+	name,
+	origin,
+	reset,
+	show,
+	tag,
+	version,
+} = require('./lib');
 
 const formats = [
 	['author'  , 'an'],
