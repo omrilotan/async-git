@@ -1,6 +1,6 @@
 {
   "name": "async-git",
-  "version": "1.9.1",
+  "version": "1.10.0",
   "description": "👾 Retrieve data from current git repository",
   "keywords": [
     "git",

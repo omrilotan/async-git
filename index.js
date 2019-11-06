@@ -1,6 +1,6 @@
+const list = require('./helpers/list');
 const {
 	branch,
-	changed,
 	date,
 	modified,
 	name,
@@ -22,15 +22,24 @@ const formats = [
 	['subject' , 's' ],
 ];
 
+const lists = [
+	['changed', 'git diff-tree --no-commit-id --name-only -r HEAD'],
+	['staged', 'git diff --name-only --cached'],
+	['unstaged', 'git diff --name-only'],
+	['untracked', 'git ls-files -o --exclude-standard'],
+];
+
 const getters = Object.assign(
 	{
 		branch,
-		changed,
 		date,
 		name,
 		origin,
 		version,
 	},
+	...lists.map(
+		([fn, value]) => ({[fn]: list.bind(null, value)}),
+	),
 	...formats.map(
 		([key, value]) => ({[key]: show.bind(null, value)}),
 	),
@@ -46,23 +55,26 @@ const functions = {
  * @typedef     asyncGit
  * @description Get git info
  * @type     {Object}
- * @property {Promise<String>} author   Author name of the last commit
- * @property {Promise<String>} body     Most recent commit message body
- * @property {Promise<String>} branch   Current branch name
- * @property {Promise<Array>}  changed  List of files changed in the last commit
- * @property {Promise<String>} comitter Comitter name of the last commit
- * @property {Promise<String>} date     Get last author date
- * @property {Promise<String>} email    Author email of the last commit
- * @property {Promise<String>} message  Most recent commit full message
- * @property {Promise<String>} name     Project name
- * @property {Promise<String>} origin   Remote origin URL
- * @property {Promise<String>} sha      Unique identifier of the last commit
- * @property {Promise<String>} short    7 Character Unique identifier of the last commit
- * @property {Promise<String>} subject  Most recent commit subject
- * @property {Promise<String>} version  Get git version (semver)
- * @property {Function}        modified Get the last modified date of a file
- * @property {Function}        reset    Reset current HEAD to the specified state
- * @property {Function}        tag      Create and push a git tag with the last commit message
+ * @property {Promise<string>}   author    Author name of the last commit
+ * @property {Promise<string>}   body      Most recent commit message body
+ * @property {Promise<string>}   branch    Current branch name
+ * @property {Promise<string>}   comitter  Comitter name of the last commit
+ * @property {Promise<string>}   date      Get last author date
+ * @property {Promise<string>}   email     Author email of the last commit
+ * @property {Promise<string>}   message   Most recent commit full message
+ * @property {Promise<string>}   name      Project name
+ * @property {Promise<string>}   origin    Remote origin URL
+ * @property {Promise<string>}   sha       Unique identifier of the last commit
+ * @property {Promise<string>}   short     7 Character Unique identifier of the last commit
+ * @property {Promise<string>}   subject   Most recent commit subject
+ * @property {Promise<string>}   version   Get git version (semver)
+ * @property {Promise<string[]>} changed   List of files changed in the last commit
+ * @property {Promise<string[]>} staged    List of staged files
+ * @property {Promise<string[]>} unstaged  List of unstaged files
+ * @property {Promise<string[]>} untracked List of untracked files
+ * @property {Function}          modified  Get the last modified date of a file
+ * @property {Function}          reset     Reset current HEAD to the specified state
+ * @property {Function}          tag       Create and push a git tag with the last commit message
  */
 Object.defineProperties(
 	module.exports,

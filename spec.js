@@ -1,11 +1,18 @@
-const { clean } = abuser(__filename);
 const exec = require('async-execute');
-const git = require('.');
 
-describe(`async-git (${Object.getOwnPropertyNames(git).join(', ')})`, async() => {
+const { clean, override } = abuser(__filename);
+const list = stub();
+let git;
+
+describe('async-git', async() => {
 	let start;
 
 	before(async() => {
+		clean('.');
+		override('./helpers/list', list);
+		list.returns(['a', 'b', 'c']);
+		git = require('.');
+
 		if (process.env.CI) { return; }
 
 		start = await git.sha;
@@ -14,13 +21,16 @@ describe(`async-git (${Object.getOwnPropertyNames(git).join(', ')})`, async() =>
 		await exec('git commit -m "committing all changes before tests"');
 	});
 
+	afterEach(() => list.resetHistory());
+
 	after(async() => {
+		clean('.');
+
 		if (process.env.CI) { return; }
 
 		await exec(`git reset ${start} --soft`);
 		await exec('rm fake-file.txt');
 		await exec('git add fake-file.txt');
-		clean('.');
 	});
 
 	[
@@ -46,14 +56,6 @@ describe(`async-git (${Object.getOwnPropertyNames(git).join(', ')})`, async() =>
 		expect(value).to.be.a('string');
 	});
 
-	it('changed should retrieve an array of strings', async () => {
-		const value = await git.changed;
-		expect(value).to.be.an('array');
-		value.forEach(
-			file => expect(file).to.be.a('string'),
-		);
-	});
-
 	it('date should retrieve a valid date', async () => {
 		const date = await git.date;
 
@@ -73,6 +75,38 @@ describe(`async-git (${Object.getOwnPropertyNames(git).join(', ')})`, async() =>
 			1,
 		);
 	});
+
+	// Lists
+
+	it('Should call list with relevant git command', async() => {
+		await git.changed;
+		expect(list).to.have.been.calledWith('git diff-tree --no-commit-id --name-only -r HEAD');
+	});
+
+	[
+		'changed',
+		'staged',
+		'untracked',
+	].forEach(member => it(`${member} should retrieve an array`, async () => {
+		const value = await git[member];
+		expect(value).to.be.an('array');
+		expect(value).to.have.lengthOf.at.least(1);
+	}));
+
+	it('changed should call list with relevant git command', async() => {
+		await git.changed;
+		expect(list).to.have.been.calledWith('git diff-tree --no-commit-id --name-only -r HEAD');
+	});
+
+	it('changed should retrieve an array of strings', async () => {
+		const value = await git.changed;
+		expect(value).to.be.an('array');
+		value.forEach(
+			file => expect(file).to.be.a('string'),
+		);
+	});
+
+	// Functions
 
 	it('Should get the short and long sha', async() => {
 		expect(await git.sha).to.have.lengthOf(40);
