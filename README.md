@@ -17,7 +17,7 @@ const git = require('async-git');
 | `author` | string | Author name of the last commit | `await git.author`
 | `body` | string | Most recent commit message body | `await git.body`
 | `branch` | string | Current branch name | `await git.branch`
-| `changed` | Array | List of files changed in last commit | `await git.changed`
+| `changed` | string[] | List of files changed in last commit | `await git.changed`
 | `comitter` | string | Comitter name of the last commit | `await git.comitter`
 | `date` | Date | Date of the last change | `await git.date`
 | `email` | string | Author email of the last commit | `await git.email`
@@ -26,7 +26,10 @@ const git = require('async-git');
 | `origin` | string | Remote origin URL | `await git.origin`
 | `sha` | string | Unique identifier of the last commit | `await git.sha`
 | `short` | string | 7 Character Unique identifier of the last commit | `await git.short`
+| `staged` | string[] | List of staged files | `await git.staged`
 | `subject` | string | Most recent commit subject | `await git.subject`
+| `unstaged` | string[] | List of unstaged files | `await git.unstaged`
+| `untracked` | string[] | List of untracked files | `await git.untracked`
 | `version` | string | Get git version (semver) | `await git.version`
 
 ## Functions
