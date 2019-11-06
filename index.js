@@ -1,16 +1,17 @@
-const list = require('./helpers/list');
+const exec = require('async-execute');
+
 const {
-	branch,
-	date,
+	list,
 	modified,
-	name,
-	origin,
 	reset,
-	show,
 	tag,
-	version,
 } = require('./lib');
 
+/**
+ * Items to pull out of git show entry
+ * @type {Array[]}
+ * @see https://git-scm.com/docs/git-show for placeholders
+ */
 const formats = [
 	['author'  , 'an'],
 	['body'    , 'b' ],
@@ -22,29 +23,49 @@ const formats = [
 	['subject' , 's' ],
 ];
 
+/**
+ * Items to pull out of terminal output
+ * @type {Array[]}
+ */
+const outputs = [
+	['branch', 'git rev-parse --abbrev-ref HEAD'],
+	['name'  , 'basename -s .git `git config --get remote.origin.url`'],
+	['origin', 'git remote get-url origin'],
+];
+
+/**
+ * Lists to get from multi-line terminal output
+ * @type {Array[]}
+ */
 const lists = [
-	['changed', 'git diff-tree --no-commit-id --name-only -r HEAD'],
-	['staged', 'git diff --name-only --cached'],
-	['unstaged', 'git diff --name-only'],
+	['changed'  , 'git diff-tree --no-commit-id --name-only -r HEAD'],
+	['staged'   , 'git diff --name-only --cached'],
+	['unstaged' , 'git diff --name-only'],
 	['untracked', 'git ls-files -o --exclude-standard'],
 ];
 
+/**
+ * Properties which will become (async) getters
+ */
 const getters = Object.assign(
 	{
-		branch,
-		date,
-		name,
-		origin,
-		version,
+		date: async () => new Date(parseInt(await exec('git show -s --format=%at')) * 1000),
+		version: async () => (await exec('git version')).split(' ').pop(),
 	},
+	...outputs.map(
+		([key, value]) => ({[key]: exec.bind(null, value)}),
+	),
 	...lists.map(
-		([fn, value]) => ({[fn]: list.bind(null, value)}),
+		([key, value]) => ({[key]: list.bind(null, value)}),
 	),
 	...formats.map(
-		([key, value]) => ({[key]: show.bind(null, value)}),
+		([key, value]) => ({[key]: exec.bind(null, `git show -s --format=%${value}`)}),
 	),
 );
 
+/**
+ * Properties which will become (async) functions
+ */
 const functions = {
 	modified,
 	reset,

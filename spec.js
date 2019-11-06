@@ -4,16 +4,25 @@ const { clean, override } = abuser(__filename);
 const list = stub();
 let git;
 
+const is = Object.defineProperty(
+	{},
+	'ci',
+	{
+		get: () => process.env.CI || process.env.GITHUB_WORKSPACE,
+	},
+);
+
 describe('async-git', async() => {
 	let start;
 
 	before(async() => {
 		clean('.');
-		override('./helpers/list', list);
+		clean('./lib');
+		override('./lib/list', list);
 		list.returns(['a', 'b', 'c']);
 		git = require('.');
 
-		if (process.env.CI) { return; }
+		if (is.ci) { return; }
 
 		start = await git.sha;
 		await exec('echo "content" > fake-file.txt');
@@ -26,7 +35,7 @@ describe('async-git', async() => {
 	after(async() => {
 		clean('.');
 
-		if (process.env.CI) { return; }
+		if (is.ci) { return; }
 
 		await exec(`git reset ${start} --soft`);
 		await exec('rm fake-file.txt');
@@ -73,6 +82,16 @@ describe('async-git', async() => {
 		).to.be.closeTo(
 			new Date().getFullYear(),
 			1,
+		);
+	});
+
+	it('Should hard reset to a given sha', async() => {
+		const semver = await git.version;
+		const parts = semver.split('.');
+
+		expect(parts).to.have.lengthOf(3);
+		parts.forEach(
+			part => expect(part == parseInt(part)).to.be.true,
 		);
 	});
 

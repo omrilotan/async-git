@@ -1,6 +1,8 @@
-# async-git [![](https://img.shields.io/npm/v/async-git.svg)](https://www.npmjs.com/package/async-git) [![](https://img.shields.io/badge/source--000000.svg?logo=github&style=social)](https://github.com/omrilotan/async-git) [![](https://circleci.com/gh/omrilotan/async-git.svg?style=svg)](https://circleci.com/gh/omrilotan/async-git)
+# async-git [![](https://img.shields.io/npm/v/async-git.svg)](https://www.npmjs.com/package/async-git)
 
 ## 👾 Retrieve data from current git repository
+
+[![](https://github.com/omrilotan/paraphrase/workflows/Publish/badge.svg)](https://github.com/omrilotan/paraphrase/actions) [![](https://img.shields.io/badge/source--000000.svg?logo=github&style=social)](https://github.com/omrilotan/async-git)
 
 \* Getter properties are async (getters) [more on async properties](https://dev.to/omrilotan/javascript-apis-with-async-properties-5ag7)
 
