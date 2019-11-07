@@ -15,8 +15,17 @@ jobs:
       run: npm i
     - name: Run tests
       run: npm t
-    - name: Check syntax
-      run: npm run lint -- --plugin log
+    - name: Check syntax and push fixes
+      run: |
+        npm run lint -- --plugin log --fix
+        REMOTE=https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+        git config user.email "${{ github.actor }}@users.noreply.github.com"
+        git config user.name "${{ github.actor }}"
+
+        git add .
+        git status
+        git commit -m "👕"
+        git push ${REMOTE} ${{ github.ref }}
     - name: Add NPM token
       if: github.ref == 'refs/heads/master'
       run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
