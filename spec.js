@@ -50,6 +50,7 @@ describe('async-git', async() => {
 		'message',
 		'name',
 		'origin',
+		'owner',
 		'sha',
 		'short',
 		'subject',

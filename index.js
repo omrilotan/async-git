@@ -30,7 +30,6 @@ const formats = [
  */
 const outputs = [
 	['branch', 'git rev-parse --abbrev-ref HEAD'],
-	['name'  , 'basename -s .git `git config --get remote.origin.url`'],
 	['origin', 'git remote get-url origin'],
 ];
 
@@ -51,6 +50,8 @@ const lists = [
 const getters = Object.assign(
 	{
 		date: async () => new Date(parseInt(await exec('git show -s --format=%at')) * 1000),
+		name: async () => (await remote()).name,
+		owner: async () => (await remote()).owner,
 		version: async () => (await exec('git version')).split(' ').pop(),
 	},
 	...outputs.map(
@@ -86,6 +87,7 @@ const functions = {
  * @property {Promise<string>}   message   Most recent commit full message
  * @property {Promise<string>}   name      Project name
  * @property {Promise<string>}   origin    Remote origin URL
+ * @property {Promise<string>}   owner     Project owner
  * @property {Promise<string>}   sha       Unique identifier of the last commit
  * @property {Promise<string>}   short     7 Character Unique identifier of the last commit
  * @property {Promise<string>}   subject   Most recent commit subject

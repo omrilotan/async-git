@@ -1,6 +1,6 @@
 {
   "name": "async-git",
-  "version": "1.10.1",
+  "version": "1.11.0",
   "description": "👾 Retrieve data from current git repository",
   "keywords": [
     "git",
@@ -29,7 +29,7 @@
     "lint": "eslint . --ext .js"
   },
   "dependencies": {
-    "@does/exist": "^1.0.0",
+    "@does/exist": "^1.1.0",
     "async-execute": "^1.1.0"
   },
   "devDependencies": {
@@ -38,7 +38,7 @@
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "deep-equal-in-any-order": "^1.0.21",
-    "eslint": "^6.6.0",
+    "eslint": "^6.7.2",
     "eslint-plugin-log": "^1.2.3",
     "index-require": "^1.0.1",
     "mocha": "^6.2.2",

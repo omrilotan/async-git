@@ -26,6 +26,7 @@ const git = require('async-git');
 | `message` | string | Most recent commit full message (subject and body) | `await git.message`
 | `name` | string | Project name | `await git.name`
 | `origin` | string | Remote origin URL | `await git.origin`
+| `owner` | string | Remote repository owner | `await git.owner`
 | `sha` | string | Unique identifier of the last commit | `await git.sha`
 | `short` | string | 7 Character Unique identifier of the last commit | `await git.short`
 | `staged` | string[] | List of staged files | `await git.staged`
