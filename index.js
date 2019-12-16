@@ -3,6 +3,7 @@ const exec = require('async-execute');
 const {
 	list,
 	modified,
+	remote,
 	reset,
 	tag,
 } = require('./lib');
