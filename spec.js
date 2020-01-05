@@ -19,6 +19,7 @@ describe('async-git', async() => {
 		clean('.');
 		clean('./lib');
 		override('./lib/list', list);
+		override('./lib/unadded', list);
 		list.returns(['a', 'b', 'c']);
 		git = require('.');
 
@@ -28,6 +29,7 @@ describe('async-git', async() => {
 		await exec('echo "content" > fake-file.txt');
 		await exec('git add .');
 		await exec('git commit -m "committing all changes before tests"');
+		await exec('echo "content" > unadded.txt');
 	});
 
 	afterEach(() => list.resetHistory());
@@ -38,6 +40,7 @@ describe('async-git', async() => {
 		if (is.ci) { return; }
 
 		await exec(`git reset ${start} --soft`);
+		await exec('rm unadded.txt');
 		await exec('rm fake-file.txt');
 		await exec('git add fake-file.txt');
 	});
@@ -106,6 +109,7 @@ describe('async-git', async() => {
 	[
 		'changed',
 		'staged',
+		'unadded',
 		'untracked',
 	].forEach(member => it(`${member} should retrieve an array`, async () => {
 		const value = await git[member];

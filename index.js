@@ -6,6 +6,7 @@ const {
 	remote,
 	reset,
 	tag,
+	unadded,
 } = require('./lib');
 
 /**
@@ -52,6 +53,7 @@ const getters = Object.assign(
 		date: async () => new Date(parseInt(await exec('git show -s --format=%at')) * 1000),
 		name: async () => (await remote()).name,
 		owner: async () => (await remote()).owner,
+		unadded,
 		version: async () => (await exec('git version')).split(' ').pop(),
 	},
 	...outputs.map(
@@ -94,6 +96,7 @@ const functions = {
  * @property {Promise<string>}   version   Get git version (semver)
  * @property {Promise<string[]>} changed   List of files changed in the last commit
  * @property {Promise<string[]>} staged    List of staged files
+ * @property {Promise<string[]>} unadded   List of files that would be added or removed by 'git add'
  * @property {Promise<string[]>} unstaged  List of unstaged files
  * @property {Promise<string[]>} untracked List of untracked files
  * @property {Function}          modified  Get the last modified date of a file
