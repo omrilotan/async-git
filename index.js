@@ -41,6 +41,7 @@ const outputs = [
 const lists = [
 	['changed'  , 'git diff-tree --no-commit-id --name-only -r HEAD'],
 	['staged'   , 'git diff --name-only --cached'],
+	['tags'     , 'git tag'],
 	['unstaged' , 'git diff --name-only'],
 	['untracked', 'git ls-files -o --exclude-standard'],
 ];

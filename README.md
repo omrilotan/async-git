@@ -31,6 +31,7 @@ const git = require('async-git');
 | `short` | string | 7 Character Unique identifier of the last commit | `await git.short`
 | `staged` | string[] | List of staged files | `await git.staged`
 | `subject` | string | Most recent commit subject | `await git.subject`
+| `tags` | string[] | List of tags | `await git.tags`
 | `unadded` | string[] | List of files that would be added or removed by 'git add' | `await git.unadded`
 | `unstaged` | string[] | List of unstaged files | `await git.unstaged`
 | `untracked` | string[] | List of untracked files | `await git.untracked`

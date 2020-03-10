@@ -109,6 +109,7 @@ describe('async-git', async() => {
 	[
 		'changed',
 		'staged',
+		'tags',
 		'unadded',
 		'untracked',
 	].forEach(member => it(`${member} should retrieve an array`, async () => {

@@ -1,6 +1,6 @@
 {
   "name": "async-git",
-  "version": "1.12.0",
+  "version": "1.13.0",
   "description": "👾 Retrieve data from current git repository",
   "keywords": [
     "git",
@@ -42,7 +42,7 @@
     "eslint-plugin-log": "^1.2.3",
     "index-require": "^1.0.1",
     "mocha": "^7.0.0",
-    "sinon": "^8.0.2",
+    "sinon": "^9.0.1",
     "sinon-chai": "^3.3.0"
   }
 }
