@@ -38,7 +38,7 @@
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "deep-equal-in-any-order": "^1.0.21",
-    "eslint": "^6.7.2",
+    "eslint": "^7.0.0",
     "eslint-plugin-log": "^1.2.3",
     "index-require": "^1.0.1",
     "mocha": "^7.0.0",
