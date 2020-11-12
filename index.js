@@ -15,14 +15,14 @@ const {
  * @see https://git-scm.com/docs/git-show for placeholders
  */
 const formats = [
-	['author'  , 'an'],
-	['body'    , 'b' ],
-	['comitter', 'cn'],
-	['email'   , 'ae'],
-	['message' , 'B' ],
-	['sha'     , 'H' ],
-	['short'   , 'h' ],
-	['subject' , 's' ],
+	[ 'author', 'an' ],
+	[ 'body', 'b' ],
+	[ 'comitter', 'cn' ],
+	[ 'email', 'ae' ],
+	[ 'message', 'B' ],
+	[ 'sha', 'H' ],
+	[ 'short', 'h' ],
+	[ 'subject', 's' ],
 ];
 
 /**
@@ -30,8 +30,8 @@ const formats = [
  * @type {Array[]}
  */
 const outputs = [
-	['branch', 'git rev-parse --abbrev-ref HEAD'],
-	['origin', 'git remote get-url origin'],
+	[ 'branch', 'git rev-parse --abbrev-ref HEAD' ],
+	[ 'origin', 'git remote get-url origin' ],
 ];
 
 /**
@@ -39,11 +39,11 @@ const outputs = [
  * @type {Array[]}
  */
 const lists = [
-	['changed'  , 'git diff-tree --no-commit-id --name-only -r HEAD'],
-	['staged'   , 'git diff --name-only --cached'],
-	['tags'     , 'git tag'],
-	['unstaged' , 'git diff --name-only'],
-	['untracked', 'git ls-files -o --exclude-standard'],
+	[ 'changed', 'git diff-tree --no-commit-id --name-only -r HEAD' ],
+	[ 'staged', 'git diff --name-only --cached' ],
+	[ 'tags', 'git tag' ],
+	[ 'unstaged', 'git diff --name-only' ],
+	[ 'untracked', 'git ls-files -o --exclude-standard' ],
 ];
 
 /**
@@ -58,13 +58,13 @@ const getters = Object.assign(
 		version: async () => (await exec('git version')).split(' ').pop(),
 	},
 	...outputs.map(
-		([key, value]) => ({[key]: exec.bind(null, value)}),
+		([ key, value ]) => ({ [key]: exec.bind(null, value) }),
 	),
 	...lists.map(
-		([key, value]) => ({[key]: list.bind(null, value)}),
+		([ key, value ]) => ({ [key]: list.bind(null, value) }),
 	),
 	...formats.map(
-		([key, value]) => ({[key]: exec.bind(null, `git show -s --format=%${value}`)}),
+		([ key, value ]) => ({ [key]: exec.bind(null, `git show -s --format=%${value}`) }),
 	),
 );
 
@@ -108,7 +108,7 @@ Object.defineProperties(
 	module.exports,
 	Object.assign(
 		Object.entries(getters).reduce(
-			(props, [key, value]) => Object.assign(
+			(props, [ key, value ]) => Object.assign(
 				props,
 				{
 					[key]: {
@@ -120,7 +120,7 @@ Object.defineProperties(
 			{},
 		),
 		Object.entries(functions).reduce(
-			(props, [key, value]) => Object.assign(
+			(props, [ key, value ]) => Object.assign(
 				props,
 				{
 					[key]: {

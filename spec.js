@@ -20,7 +20,7 @@ describe('async-git', async() => {
 		clean('./lib');
 		override('./lib/list', list);
 		override('./lib/unadded', list);
-		list.returns(['a', 'b', 'c']);
+		list.returns([ 'a', 'b', 'c' ]);
 		git = require('.');
 
 		if (is.ci) { return; }

@@ -2,7 +2,7 @@
 
 ## 👾 Retrieve data from current git repository
 
-[![](https://github.com/omrilotan/paraphrase/workflows/Publish/badge.svg)](https://github.com/omrilotan/paraphrase/actions) [![](https://img.shields.io/badge/source--000000.svg?logo=github&style=social)](https://github.com/omrilotan/async-git)
+[![](https://github.com/omrilotan/async-git/workflows/publish/badge.svg)](https://github.com/omrilotan/async-git/actions) [![](https://img.shields.io/badge/source--000000.svg?logo=github&style=social)](https://github.com/omrilotan/async-git)
 
 \* Getter properties are async (getters) [more on async properties](https://dev.to/omrilotan/javascript-apis-with-async-properties-5ag7)
 
