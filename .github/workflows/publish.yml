@@ -1,14 +1,14 @@
 name: Publish
-
-on: [push]
-
+on:
+  - push
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ '12' ]
-
+        node-version:
+          - '12'
+          - '14'
     steps:
     - uses: actions/checkout@v1
     - name: Install dependencies
@@ -18,10 +18,10 @@ jobs:
     - name: Check syntax
       run: npm run lint -- --plugin log
     - name: Add NPM token
-      if: github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/main'
       run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
       env:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     - name: Build and Publish
-      if: github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/main'
       run: npx @lets/publish
