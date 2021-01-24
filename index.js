@@ -1,7 +1,6 @@
-const exec = require('async-execute');
+const spawn = require('./helpers/spawn');
 
 const {
-	list,
 	modified,
 	remote,
 	reset,
@@ -30,8 +29,8 @@ const formats = [
  * @type {Array[]}
  */
 const outputs = [
-	[ 'branch', 'git rev-parse --abbrev-ref HEAD' ],
-	[ 'origin', 'git remote get-url origin' ],
+	[ 'branch', 'rev-parse --abbrev-ref HEAD' ],
+	[ 'origin', 'remote get-url origin' ],
 ];
 
 /**
@@ -39,11 +38,11 @@ const outputs = [
  * @type {Array[]}
  */
 const lists = [
-	[ 'changed', 'git diff-tree --no-commit-id --name-only -r HEAD' ],
-	[ 'staged', 'git diff --name-only --cached' ],
-	[ 'tags', 'git tag' ],
-	[ 'unstaged', 'git diff --name-only' ],
-	[ 'untracked', 'git ls-files -o --exclude-standard' ],
+	[ 'changed', 'diff-tree --no-commit-id --name-only -r HEAD' ],
+	[ 'staged', 'diff --name-only --cached' ],
+	[ 'tags', 'tag' ],
+	[ 'unstaged', 'diff --name-only' ],
+	[ 'untracked', 'ls-files -o --exclude-standard' ],
 ];
 
 /**
@@ -51,20 +50,20 @@ const lists = [
  */
 const getters = Object.assign(
 	{
-		date: async () => new Date(parseInt(await exec('git show -s --format=%at')) * 1000),
+		date: async () => new Date(parseInt(await spawn('show -s --format=%at')) * 1000),
 		name: async () => (await remote()).name,
 		owner: async () => (await remote()).owner,
 		unadded,
-		version: async () => (await exec('git version')).split(' ').pop(),
+		version: async () => (await spawn('version')).split(' ').pop(),
 	},
 	...outputs.map(
-		([ key, value ]) => ({ [key]: exec.bind(null, value) }),
+		([ key, value ]) => ({ [key]: spawn.bind(null, value) }),
 	),
 	...lists.map(
-		([ key, value ]) => ({ [key]: list.bind(null, value) }),
+		([ key, value ]) => ({ [key]: async () => (await spawn(value)).split('\n') }),
 	),
 	...formats.map(
-		([ key, value ]) => ({ [key]: exec.bind(null, `git show -s --format=%${value}`) }),
+		([ key, value ]) => ({ [key]: spawn.bind(null, `show -s --format=%${value}`) }),
 	),
 );
 

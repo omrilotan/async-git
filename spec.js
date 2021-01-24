@@ -1,7 +1,6 @@
 const exec = require('async-execute');
 
-const { clean, override } = abuser(__filename);
-const list = stub();
+const { clean } = abuser(__filename);
 let git;
 
 const is = Object.defineProperty(
@@ -18,9 +17,6 @@ describe('async-git', async() => {
 	before(async() => {
 		clean('.');
 		clean('./lib');
-		override('./lib/list', list);
-		override('./lib/unadded', list);
-		list.returns([ 'a', 'b', 'c' ]);
 		git = require('.');
 
 		if (is.ci) { return; }
@@ -31,8 +27,6 @@ describe('async-git', async() => {
 		await exec('git commit -m "committing all changes before tests"');
 		await exec('echo "content" > unadded.txt');
 	});
-
-	afterEach(() => list.resetHistory());
 
 	after(async() => {
 		clean('.');
@@ -99,29 +93,16 @@ describe('async-git', async() => {
 		);
 	});
 
-	// Lists
-
-	it('Should call list with relevant git command', async() => {
-		await git.changed;
-		expect(list).to.have.been.calledWith('git diff-tree --no-commit-id --name-only -r HEAD');
-	});
-
 	[
 		'changed',
 		'staged',
 		'tags',
-		'unadded',
 		'untracked',
 	].forEach(member => it(`${member} should retrieve an array`, async () => {
 		const value = await git[member];
 		expect(value).to.be.an('array');
 		expect(value).to.have.lengthOf.at.least(1);
 	}));
-
-	it('changed should call list with relevant git command', async() => {
-		await git.changed;
-		expect(list).to.have.been.calledWith('git diff-tree --no-commit-id --name-only -r HEAD');
-	});
 
 	it('changed should retrieve an array of strings', async () => {
 		const value = await git.changed;

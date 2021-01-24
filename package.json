@@ -1,6 +1,6 @@
 {
   "name": "async-git",
-  "version": "1.13.1",
+  "version": "1.13.2",
   "description": "👾 Retrieve data from current git repository",
   "keywords": [
     "git",
@@ -25,17 +25,18 @@
   "homepage": "https://omrilotan.com/async-git/",
   "main": "index.js",
   "scripts": {
+    "pretest": "echo \"content\" > unadded.txt",
     "test": "mocha '**/spec.js' --require .mocha.js --recursive --exclude 'node_modules'",
     "lint": "eslint . --ext .js"
   },
   "dependencies": {
-    "@does/exist": "^1.1.0",
-    "async-execute": "^1.1.0"
+    "@does/exist": "^1.1.0"
   },
   "devDependencies": {
     "@lets/wait": "^2.0.2",
     "@omrilotan/eslint-config": "^1.1.0",
     "abuser": "^2.0.2",
+    "async-execute": "^1.2.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "deep-equal-in-any-order": "^1.0.21",
