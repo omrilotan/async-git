@@ -44,7 +44,7 @@
     "eslint-plugin-log": "^1.2.3",
     "index-require": "^1.0.1",
     "mocha": "^8.0.1",
-    "sinon": "^9.0.1",
+    "sinon": "^10.0.1",
     "sinon-chai": "^3.3.0"
   }
 }
